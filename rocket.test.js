@@ -62,7 +62,38 @@ describe('Rocket', () => {
       // assert
         expect(result).toBe(false);
     });
+    test("if the rocket is flying return true", () => {
+      // arrange
+        let rocket_six = new Rocket({flying: true});
 
+      // act
+        let result = rocket_six.land();
+
+      // assert
+        expect(result).toBe(true);
+    });
+  describe('status', () => {
+    test("if the rocket is not flying return ready for liftoff", () => {
+      // arrange
+        let rocket_seven = new Rocket();
+
+      // act
+        let result = rocket_seven.status();
+
+      // assert
+        expect(result).toContain('ready for liftoff!');
+    });
+    test("if the rocket is flying return flying through the sky", () => {
+      // arrange
+        let rocket_eight = new Rocket({flying: true});
+      
+      // act
+        let result = rocket_eight.status();
+
+      // assert
+        expect(result).toContain('flying through the sky!');
+    });
+  });
   });
   // ...
 
