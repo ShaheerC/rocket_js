@@ -51,6 +51,7 @@ describe('Rocket', () => {
       expect(result).toBe(false);
     });
   });
+
   describe('land', () => {
     test('if the rocket is not flying return false', () => {
       // arrange
@@ -72,6 +73,8 @@ describe('Rocket', () => {
       // assert
         expect(result).toBe(true);
     });
+  });
+
   describe('status', () => {
     test("if the rocket is not flying return ready for liftoff", () => {
       // arrange
@@ -94,7 +97,59 @@ describe('Rocket', () => {
         expect(result).toContain('flying through the sky!');
     });
   });
+  
+  describe('send coded signal', () => {
+    test("if no message code provided return boop", () => {
+      // arrange
+        let rocket_nine = new Rocket();
+
+      // act
+        let result = rocket_nine.sendCodedSignal();
+
+      // assert
+        expect(result).toBe('boop');
+    });
+    test("if code is < 10 return beep", () => {
+      // arrange
+        let rocket_ten = new Rocket();
+
+      // act
+        let result = rocket_ten.sendCodedSignal(9);
+
+      // assert
+        expect(result).toBe('beep');
+    });
+    test("if code is < 10 and rocket is flying return beep beep", () => {
+      // arrange
+        let rocket_eleven = new Rocket({flying: true});
+
+      // act
+        let result = rocket_eleven.sendCodedSignal(9);
+      // assert
+        expect(result).toBe('beep beep');
+    });
+    test("if code is > 10 and rocket is flying return boop boop boop", () => {
+      // arrange
+        let rocket_twelve = new Rocket({flying: true});
+
+      // act
+        let result = rocket_twelve.sendCodedSignal(11);
+
+      // assert
+        expect(result).toBe('boop boop boop');
+    });
+    test("if code is > 10 and rocket is not flying return boop beep beep", () => {
+      // arrange
+        let rocket_thirteen = new Rocket();
+
+      // act
+        let result = rocket_thirteen.sendCodedSignal(11);
+
+      // assert
+        expect(result).toBe("boop beep beep");
+    });
   });
+
   // ...
 
 });
